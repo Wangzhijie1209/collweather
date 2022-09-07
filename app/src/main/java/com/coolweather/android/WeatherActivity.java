@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -47,6 +49,15 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        //只有版本号大于或等于21,也就是5.0以上系统才会执行
+        if(Build.VERSION.SDK_INT >= 21){
+            View decorView = getWindow().getDecorView();
+            //改变系统UI的显示 表示Activity的布局会显示在状态栏的上面
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            //将状态栏设置成透明色
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+
         //初始化控件
         initView();
 
@@ -68,8 +79,10 @@ public class WeatherActivity extends AppCompatActivity {
 
         String bingPic = prefs.getString("bing_pic",null);
         if(bingPic!=null){
+            //有缓存直接加载
             Glide.with(this).load(bingPic).into(bingPicImg);
         }else {
+            //没有缓冲调用loadBingPic()方法去请求今日必应背景图
             loadBingPic();
         }
     }
@@ -78,6 +91,7 @@ public class WeatherActivity extends AppCompatActivity {
      * 加载必应每日一图
      */
     private void loadBingPic() {
+        //每日一图接口
         String requestBingPic="http://guolin.tech/api/bing_pic";
         HttpUtil.sendOKHttpRequest(requestBingPic, new Callback() {
             @Override
