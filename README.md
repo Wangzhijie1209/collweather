@@ -2,7 +2,8 @@
 
 
 
-
+由于背景图失效 所以暂时将 activity_weather.xml中的 android:background="@color/design_default_color_primary"
+属性设置为了一张图片
 
 
 
