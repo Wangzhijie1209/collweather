@@ -9,3 +9,5 @@
 
 
 http://guolin.tech/api/weather?cityid=CN101190401&key=fcce9b8b771b4b5c8fdcac205300c96d
+
+http://guolin.tech/api/bing_pic

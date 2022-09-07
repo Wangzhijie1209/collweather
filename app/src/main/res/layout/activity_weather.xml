@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/design_default_color_primary"
     tools:context=".WeatherActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/bing_pic_img"
+        android:scaleType="centerCrop"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +25,7 @@
             <include layout="@layout/now"/>
             <include layout="@layout/forecast"/>
             <include layout="@layout/aqi"/>
-            <include layout="@layout/suggestion"/>
+            <include layout="@layout/suggestion"/>d
         </LinearLayout>
     </ScrollView>
 
