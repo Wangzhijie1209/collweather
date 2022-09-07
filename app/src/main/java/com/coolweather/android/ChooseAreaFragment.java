@@ -107,10 +107,19 @@ public class ChooseAreaFragment extends Fragment {
                     //判断当前级别是LEVEL_COUNTY 就启动WeatherActivity 并把当前选中县的天气id传递过去
                 }else if(currentLevel == LEVEL_COUNTY){
                     String weatherId = countyList.get(position).getWeatherId();
+                    //判断该Fragment是不是在MainActivity中,如果在的话,逻辑不变
+                    if(getActivity() instanceof MainActivity){
                     Intent intent = new Intent(getActivity(), WeatherActivity.class);
                     intent.putExtra("weather_id",weatherId);
                     startActivity(intent);
                     getActivity().finish();
+                    //如果在WeatherActivity中,就关闭滑动菜单,显示下拉刷新进度条,然后请求新城市的天气
+                    }else if(getActivity() instanceof WeatherActivity){
+                        WeatherActivity activity = (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipeRefresh.setRefreshing(true);
+                        activity.requestWeather(weatherId);
+                    }
                 }
             }
         });

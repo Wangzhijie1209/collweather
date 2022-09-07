@@ -2,6 +2,8 @@ package com.coolweather.android;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.SharedPreferences;
@@ -10,8 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -45,15 +49,28 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView carWashText;
     private TextView sportText;
     private ImageView bingPicImg;
-    private SwipeRefreshLayout swipeRefresh;
+    public SwipeRefreshLayout swipeRefresh;
 
     //定义mWeatherId记录城市的天气id
     private String mWeatherId;
+    public DrawerLayout drawerLayout;
+    private Button navButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        //初始化控件
+        initView();
+        //打开滑动菜单
+        navButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+
         //只有版本号大于或等于21,也就是5.0以上系统才会执行
         if(Build.VERSION.SDK_INT >= 21){
             View decorView = getWindow().getDecorView();
@@ -63,8 +80,7 @@ public class WeatherActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        //初始化控件
-        initView();
+
 
         //尝试从本地缓存中读取天气数据.第一次肯定是没有缓存的,
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -228,6 +244,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navButton = findViewById(R.id.nav_button);
+
         swipeRefresh = findViewById(R.id.swipe_refresh);
         //设置下拉进度条的颜色
         swipeRefresh.setColorSchemeResources(R.color.design_default_color_primary);
