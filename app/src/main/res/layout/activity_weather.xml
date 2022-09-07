@@ -13,17 +13,24 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+
+
     <ScrollView
         android:id="@+id/weather_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
         android:scrollbars="none">
-<!-- android:fitsSystemWindows="true" 表示会为系统状态栏留出空间 -->
+        <!-- android:fitsSystemWindows="true" 表示会为系统状态栏留出空间 -->
         <LinearLayout
-            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
             android:orientation="vertical">
 
             <include layout="@layout/title" />
@@ -37,5 +44,5 @@
             <include layout="@layout/suggestion" />d
         </LinearLayout>
     </ScrollView>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>
